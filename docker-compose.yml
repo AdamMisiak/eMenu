@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+  db:
+    container_name: emenu-db
+    image: postgis/postgis:13-3.1-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=emenu
+      - POSTGRES_PASSWORD=Temp1234
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+  web:
+    container_name: emenu-web
+    build: .
+    ports:
+      - 8000:8000
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ./app/:/app/src/
+
+volumes:
+    pgdata:
