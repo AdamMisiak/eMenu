@@ -1,6 +1,7 @@
 from rest_framework import permissions, viewsets
 
 from .models import Dish, Menu
+from .permissions import MenuPermission
 from .serializers import (
     DishCreateSerializer,
     DishSerializer,
@@ -18,7 +19,7 @@ class MenuViewset(viewsets.ModelViewSet):
 
     serializer_class = MenuSerializer
     queryset = Menu.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (MenuPermission,)
 
     def get_serializer_class(self):
         if self.action in ["retrieve", "list"]:

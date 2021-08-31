@@ -6,6 +6,11 @@ class Menu(TimeStampedModel):
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=1000)
 
+    class Meta:
+        verbose_name = "Menu"
+        verbose_name_plural = "Menus"
+        ordering = ("name",)
+
     def __str__(self):
         return f"{self.name} - MENU"
 
@@ -23,6 +28,11 @@ class Dish(TimeStampedModel):
     )
     prepare_time = models.IntegerField(default=30)  # minutes
     vegan = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Dish"
+        verbose_name_plural = "Dishes"
+        ordering = ("name",)
 
     def __str__(self):
         return f"{self.name} - {self.price} pln - DISH"
