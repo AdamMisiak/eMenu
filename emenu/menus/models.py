@@ -14,6 +14,10 @@ class Menu(TimeStampedModel):
     def __str__(self):
         return f"{self.name} - MENU"
 
+    @property
+    def dishes_number(self):
+        return self.dishes.count()
+
 
 class Dish(TimeStampedModel):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, related_name="dishes")

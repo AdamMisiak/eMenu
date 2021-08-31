@@ -1,5 +1,9 @@
+from django.db.models import Count
+from django_filters import rest_framework as filters
 from rest_framework import permissions, viewsets
+from rest_framework.filters import OrderingFilter
 
+from .filters import MenuFilter
 from .models import Dish, Menu
 from .permissions import MenuPermission
 from .serializers import (
@@ -18,8 +22,11 @@ class MenuViewset(viewsets.ModelViewSet):
     """
 
     serializer_class = MenuSerializer
-    queryset = Menu.objects.all()
+    queryset = Menu.objects.all().annotate(dish_count=Count("dishes"))
     permission_classes = (MenuPermission,)
+    filter_backends = (filters.DjangoFilterBackend, OrderingFilter)
+    filterset_class = MenuFilter
+    ordering_fields = ("name", "dish_count")
 
     def get_serializer_class(self):
         if self.action in ["retrieve", "list"]:
@@ -27,6 +34,9 @@ class MenuViewset(viewsets.ModelViewSet):
         elif self.action in ["create", "update", "partial update"]:
             return MenuCreateSerializer
         return self.serializer_class
+
+    def get_queryset(self):
+        return self.queryset.filter(dishes__isnull=False).distinct()
 
 
 class DishViewset(viewsets.ModelViewSet):

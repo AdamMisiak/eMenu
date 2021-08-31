@@ -8,6 +8,6 @@ class MenuPermission(permissions.BasePermission):
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.method in ["POST", "GET", "PUT", "PATCH", "DELETE"] and request.user.is_authenticated:
+        if request.method in ["GET", "PUT", "PATCH", "DELETE"] and request.user.is_authenticated:
             return True
         return False
