@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-from .models import (
-    Dish,
-    Menu,
-)
+from .models import Dish, Menu
 
 
 class DishInline(admin.StackedInline):
@@ -14,8 +11,9 @@ class DishInline(admin.StackedInline):
 class MenuAdmin(admin.ModelAdmin):
     list_display = ("name", "description")
     search_fields = ("name", "description")
-    ordering = ("name", )
+    ordering = ("name",)
 
-    inlines = (DishInline, )
+    inlines = [DishInline]
+
 
 admin.site.register(Menu, MenuAdmin)
