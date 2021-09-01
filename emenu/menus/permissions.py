@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 class MenuPermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.method in ["GET"]:
+        if request.method in ["GET"] or (request.method in ["POST"] and request.user.is_authenticated):
             return True
         return False
 

@@ -45,6 +45,7 @@ class MenuSerializer(serializers.ModelSerializer):
             "description",
             "dishes",
         )
+        read_only_fields = fields
 
 
 class MenuCreateSerializer(serializers.ModelSerializer):

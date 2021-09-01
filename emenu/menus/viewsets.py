@@ -47,7 +47,7 @@ class DishViewset(viewsets.ModelViewSet):
     """
 
     serializer_class = DishSerializer
-    queryset = Dish.objects.all()
+    queryset = Dish.objects.all().order_by("name")
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_serializer_class(self):

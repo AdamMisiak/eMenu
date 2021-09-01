@@ -20,3 +20,18 @@ class MenuTestCase(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
+
+    def test_get_menu_details_by_anon_user(self):
+        url = reverse("api:menus-detail", args=[self.menu.id])
+        self.client.logout()
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_post_menu_by_anon_user(self):
+        url = reverse("api:menus-list")
+        data = {"name": "Testowe menu", "description": "To jest moja pierwsza testowa karta menu :)"}
+        self.client.logout()
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 403)
