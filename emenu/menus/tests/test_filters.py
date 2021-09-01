@@ -66,3 +66,20 @@ class MenuTestCase(APITestCase):
 
         response = self.client.get(url, {"modified_from": self.yesterday, "name": "test"})
         self.assertEqual(len(response.json()["results"]), 0)
+
+    def test_get_ordered_by_name_menus(self):
+        url = reverse("api:menus-list")
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(url, {"ordering": "name"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()["results"]), 3)
+        self.assertEqual(response.json()["results"][0]["id"], self.menu.id)
+        self.assertEqual(response.json()["results"][1]["id"], self.menu3.id)
+        self.assertEqual(response.json()["results"][2]["id"], self.menu2.id)
+
+        response = self.client.get(url, {"ordering": "-dish_count"})
+        self.assertEqual(len(response.json()["results"]), 3)
+        self.assertEqual(response.json()["results"][0]["id"], self.menu3.id)
+        self.assertEqual(response.json()["results"][1]["id"], self.menu.id)
+        self.assertEqual(response.json()["results"][2]["id"], self.menu2.id)

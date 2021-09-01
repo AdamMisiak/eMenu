@@ -52,6 +52,23 @@ class MenuTestCase(APITestCase):
         self.assertEqual(response.json()["description"], self.menu.description)
         self.assertIsNotNone(response.json()["dishes"])
 
+    def test_put_menu_details_by_logged_user(self):
+        url = reverse("api:menus-detail", args=[self.menu.id])
+        data = {"name": "Testowe menu", "description": "To jest moja pierwsza testowa karta menu :)"}
+        self.client.force_authenticate(user=self.user)
+        response = self.client.put(url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["name"], data["name"])
+        self.assertEqual(response.json()["description"], data["description"])
+
+    def test_delete_menu_details_by_logged_user(self):
+        url = reverse("api:menus-detail", args=[self.menu.id])
+        self.client.force_authenticate(user=self.user)
+        response = self.client.delete(url)
+
+        self.assertEqual(response.status_code, 204)
+
     def test_get_menu_without_dishes_details_by_logged_user(self):
         url = reverse("api:menus-detail", args=[self.menu2.id])
         self.client.force_authenticate(user=self.user)

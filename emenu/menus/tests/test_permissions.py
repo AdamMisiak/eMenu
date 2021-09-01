@@ -21,6 +21,14 @@ class MenuTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_post_menu_by_anon_user(self):
+        url = reverse("api:menus-list")
+        data = {"name": "Testowe menu", "description": "To jest moja pierwsza testowa karta menu :)"}
+        self.client.logout()
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 403)
+
     def test_get_menu_details_by_anon_user(self):
         url = reverse("api:menus-detail", args=[self.menu.id])
         self.client.logout()
@@ -28,10 +36,17 @@ class MenuTestCase(APITestCase):
 
         self.assertEqual(response.status_code, 403)
 
-    def test_post_menu_by_anon_user(self):
+    def test_put_menu_details_by_anon_user(self):
         url = reverse("api:menus-list")
         data = {"name": "Testowe menu", "description": "To jest moja pierwsza testowa karta menu :)"}
         self.client.logout()
-        response = self.client.post(url, data)
+        response = self.client.put(url, data)
+
+        self.assertEqual(response.status_code, 405)
+
+    def test_delete_menu_details_by_anon_user(self):
+        url = reverse("api:menus-detail", args=[self.menu.id])
+        self.client.logout()
+        response = self.client.delete(url)
 
         self.assertEqual(response.status_code, 403)

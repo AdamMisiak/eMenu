@@ -11,7 +11,7 @@ class MenuFactory(factory.Factory):
         model = Menu
 
     name = factory.LazyFunction(lambda: faker.text(max_nb_chars=50))
-    # description = factory.LazyFunction(lambda: faker.text(max_nb_chars=100))
+    description = factory.LazyFunction(lambda: faker.text(max_nb_chars=100))
 
 
 class DishFactory(factory.Factory):
@@ -19,7 +19,7 @@ class DishFactory(factory.Factory):
         model = Dish
 
     name = factory.LazyFunction(lambda: faker.text(max_nb_chars=50))
-    # description = factory.LazyFunction(lambda: faker.text(max_nb_chars=100))
+    description = factory.LazyFunction(lambda: faker.text(max_nb_chars=100))
     price = fuzzy.FuzzyInteger(5, 200)
     photo = factory.django.FileField(filename="test.jpg")
     prepare_time = fuzzy.FuzzyInteger(5, 60)
