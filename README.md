@@ -41,5 +41,12 @@ Main API route:
 http://localhost:8000/api/menus/
 ```
 
+Default admin account:
+```
+username: admin
+email: admin@admin.com
+password: Temp1234
+```
+
 ## Contact
 Created by Adam Misiak

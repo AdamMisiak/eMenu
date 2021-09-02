@@ -1,7 +1,15 @@
+
+if ! nc -z db 5432;
+    then
+    echo "Database is getting up - please wait"
+    sleep 5;
+fi;
+
+
 python manage.py migrate
 python manage.py collectstatic --noinput
-python manage.py createadmin
+python manage.py create_admin
 python manage.py generate_menus 15
-python manage.py test
+coverage run manage.py test
 coverage report -m
 python manage.py runserver 0.0.0.0:8000
