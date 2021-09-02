@@ -1,4 +1,6 @@
 from django.db.models import Count
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django_filters import rest_framework as filters
 from rest_framework import permissions, viewsets
 from rest_framework.filters import OrderingFilter
@@ -17,8 +19,6 @@ from .serializers import (
 class MenuViewset(viewsets.ModelViewSet):
     """
     Lists/creates/updates/deletes menus.
-
-    Only for authenticated users.
     """
 
     serializer_class = MenuSerializer
@@ -38,27 +38,16 @@ class MenuViewset(viewsets.ModelViewSet):
         return self.serializer_class
 
     def get_queryset(self):
-        from django.core.mail import get_connection, send_mail
-
-        conn = get_connection(backend="django.core.mail.backends.dummy.EmailBackend")
-        send_mail(
-            subject="subject",
-            message="message",
-            from_email="emenu@emenu.dev",
-            recipient_list=[
-                "adammisiak3@gmail.com",
-            ],
-            fail_silently=False,
-            connection=conn,
-        )
         return self.queryset.filter(dishes__isnull=False).distinct()
+
+    @method_decorator(cache_page(60 * 15))
+    def list(self, request, **kwargs):
+        return super().list(request, **kwargs)
 
 
 class DishViewset(viewsets.ModelViewSet):
     """
     Lists/creates/updates/deletes dishes.
-
-    Only for authenticated users.
     """
 
     serializer_class = DishSerializer
@@ -74,3 +63,7 @@ class DishViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.filter(menu=self.kwargs["menus_pk"]).distinct()
+
+    @method_decorator(cache_page(60 * 15))
+    def list(self, request, **kwargs):
+        return super().list(request, **kwargs)
