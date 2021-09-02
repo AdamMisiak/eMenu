@@ -35,6 +35,16 @@ class DishCreateSerializer(serializers.ModelSerializer):
 
 
 class MenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = (
+            "id",
+            "name",
+        )
+        read_only_fields = fields
+
+
+class MenuDetailsSerializer(serializers.ModelSerializer):
     dishes = DishSerializer(many=True)
 
     class Meta:
