@@ -3,7 +3,7 @@ FROM python:3
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update &&\
-    apt-get install -y binutils libproj-dev gdal-bin
+    apt-get install -y binutils libproj-dev gdal-bin netcat
 
 RUN pip3 install psycopg2-binary && \
     pip3 install psycopg2
