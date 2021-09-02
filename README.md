@@ -31,19 +31,14 @@ After that, a couple things will be either created or initialized:
 - Django server,
 ```
 
-To API documentation:
+API documentation:
 ```
 http://localhost:8000/swagger/
 ```
 
-To main API route:
+Main API route:
 ```
 http://localhost:8000/api/menus/
-```
-
-For home page of app:
-```
-http://localhost:8000/
 ```
 
 ## Contact
