@@ -1,6 +1,6 @@
 # eMenu
 
-Siple REST API created to manage restaurant's menus. You can add, update and delete dishes and menus. Email notification with new dishes. Created with Django framework.
+Simple REST API created to manage restaurant's menus. It allows to add, update and delete dishes and menus, as well as to send email notifications with new dishes. Created with Django framework.
 
 
 ## Table of contents
@@ -20,15 +20,15 @@ To build backend locally:
 docker-compose up --build
 ```
 
-After that, a couple things would happen:
+After that, a couple things will be either created or initialized:
 ```
-- database creation,
-- database migrations creation,
-- static files collection,
-- basic admin account creation,
-- primary data initialization,
-- tests with coverage report creation,
-- Django server creation,
+- database,
+- database migrations,
+- static files,
+- basic admin account,
+- primary data,
+- tests with coverage report,
+- Django server,
 ```
 
 To API documentation:
