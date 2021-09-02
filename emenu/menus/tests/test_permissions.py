@@ -34,7 +34,7 @@ class MenuTestCase(APITestCase):
         self.client.logout()
         response = self.client.get(url)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def test_put_menu_details_by_anon_user(self):
         url = reverse("api:menus-list")
@@ -42,7 +42,7 @@ class MenuTestCase(APITestCase):
         self.client.logout()
         response = self.client.put(url, data)
 
-        self.assertEqual(response.status_code, 405)
+        self.assertEqual(response.status_code, 403)
 
     def test_delete_menu_details_by_anon_user(self):
         url = reverse("api:menus-detail", args=[self.menu.id])

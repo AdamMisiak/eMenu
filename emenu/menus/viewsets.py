@@ -38,6 +38,19 @@ class MenuViewset(viewsets.ModelViewSet):
         return self.serializer_class
 
     def get_queryset(self):
+        from django.core.mail import get_connection, send_mail
+
+        conn = get_connection(backend="django.core.mail.backends.dummy.EmailBackend")
+        send_mail(
+            subject="subject",
+            message="message",
+            from_email="emenu@emenu.dev",
+            recipient_list=[
+                "adammisiak3@gmail.com",
+            ],
+            fail_silently=False,
+            connection=conn,
+        )
         return self.queryset.filter(dishes__isnull=False).distinct()
 
 

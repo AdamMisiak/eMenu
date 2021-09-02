@@ -12,6 +12,10 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data/
 
+  redis:
+    container_name: emenu-redis
+    image: redis:alpine
+
   web:
     container_name: emenu-web
     build: .
@@ -20,6 +24,28 @@ services:
     env_file: .env
     depends_on:
       - db
+    volumes:
+      - ./emenu/:/emenu/
+
+  celery:
+    container_name: emenu-celery
+    build: .
+    command: celery -A emenu worker -l info
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./emenu/:/emenu/
+
+  celery-beat:
+    container_name: emenu-celery-beat
+    build: .
+    command: celery -A emenu beat -l info
+    env_file: .env
+    depends_on:
+      - db
+      - redis
     volumes:
       - ./emenu/:/emenu/
 

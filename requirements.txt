@@ -1,3 +1,4 @@
+celery==4.4.7
 Django==3.2.2
 django-cors-headers==3.7.0
 django-environ==0.4.5
@@ -7,4 +8,5 @@ django-polymorphic==3.0.0
 django-rest-polymorphic==0.1.9
 djangorestframework==3.12.4
 drf-nested-routers==0.93.3
+redis==3.5.3
 pillow==8.3.0
