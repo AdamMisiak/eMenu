@@ -11,5 +11,5 @@ python manage.py collectstatic --noinput
 python manage.py create_admin
 python manage.py generate_menus 15
 coverage run manage.py test
-coverage report -m
+coverage report -m || true
 python manage.py runserver 0.0.0.0:8000

@@ -10,7 +10,7 @@ Simple REST API created to manage restaurant's menus. It allows to add, update a
 
 ## Technologies
 * Python version: 3.8.5
-* Django version: 3.2.2
+* Django version: 3.2.4
 * Django REST framework version: 3.12.4
 * Docker version: 19.03.8
 
